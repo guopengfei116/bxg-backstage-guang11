@@ -34,7 +34,8 @@ gulp.task('less', function() {
 var jsLibs = [
     'node_modules/art-template/lib/template-web.js',
     'node_modules/jquery/dist/jquery.js',
-    'node_modules/bootstrap/dist/js/bootstrap.js'
+    'node_modules/bootstrap/dist/js/bootstrap.js',
+    'node_modules/jquery-form/dist/jquery.form.min.js'
 ];
 // 合并所有的第三方包为一个js
 gulp.task('jsLib', function() {
@@ -79,10 +80,10 @@ gulp.task('js', function() {
         var pathArr = jsPath.split('/'); // jsPath变成['src', 'js', 'user', 'login.js']
         var jsName = pathArr.pop(); // 取出login.js，数组变成['src', 'js', 'user']
         pathArr.shift(); // 取出src，数组变成['js', 'user']
-        browserify(jsPath).bundle() // 打包index.js
+        browserify(jsPath, { debug: true }).bundle() // 打包index.js
             .pipe(source(jsName))
             .pipe(buffer())
-            .pipe(uglify())
+            // .pipe(uglify())
             .pipe(gulp.dest('dist/' + pathArr.join('/'))); // 数组变成'js/user'
     });
 });
