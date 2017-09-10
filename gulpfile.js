@@ -9,10 +9,16 @@ var concat = require('gulp-concat');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream'); // 这个包可以把普通的数据流转为vinyl对象文件格式
 var buffer = require('vinyl-buffer'); // 这个是把vinyl对象文件中的数据转为buffer方式存储
+var htmlReplace = require('gulp-html-replace');
 
 // html处理
 gulp.task('html', function() {
     gulp.src(['src/**/*.html', 'index.html'])
+        .pipe(htmlReplace({
+          style: gulp.src('src/html/common/style.html'),
+          aside: gulp.src('src/html/common/aside.html'),
+          header: gulp.src('src/html/common/header.html')
+        }))
         .pipe(htmlmin({
             collapseWhitespace: true, // 去掉空白字符
             minifyJS: true,//压缩页面JS
