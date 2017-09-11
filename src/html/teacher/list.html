@@ -109,7 +109,8 @@
               <a href="/dist/html/teacher/edit.html?tc_id={{ teacher.tc_id }}"
                 class="btn btn-info btn-xs">编 辑</a>
                 <!-- tc_status: 0开启 1注销，展示的时候取反 -->
-              <a href="javascript:;" class="btn btn-warning btn-xs">{{ teacher.tc_status == 0? '注 销': '开 启' }}</a>
+              <a data-id="{{ teacher.tc_id }}"  data-status="{{ teacher.tc_status }}"
+                href="javascript:;" class="btn btn-warning btn-xs btn-teacher-status">{{ teacher.tc_status == 0? '注 销': '开 启' }}</a>
           </td>
         </tr>
         {{ /each }}
