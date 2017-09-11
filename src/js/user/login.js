@@ -1,3 +1,10 @@
+/**
+ * 回显历史登陆用户的头像，没有就展示一个默认头像
+ * */
+var userinfo = JSON.parse(localStorage.getItem('userinfo')) || {};
+var tc_avatar = userinfo.tc_avatar || '/public/img/default.png';
+$('.avatar img').attr('src', tc_avatar);
+
 // 当用户点击登陆按钮的时候，这个插件ajaxForm方法会自动监听submit事件
 // 然后阻止浏览器默认的刷新提交，然后自动变成ajax的方式发送请求。
 /**
