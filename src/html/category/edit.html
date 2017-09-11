@@ -29,24 +29,23 @@
 
     <!-- 学科编辑模版 -->
     <script id="category-edit-tpl" type="text/tpl">
-      <form action="" class="form-horizontal">
+      <form id="catetory-edit-form" action="/v6/category/modify" method="post" class="form-horizontal">
+          <input type="hidden" name="cg_id" value="{{ cg_id }}"/>
           <div class="form-group">
               <label for="" class="col-xs-4 control-label">名称</label>
               <div class="col-xs-3">
-                  <input name="" value="{{ cg_name }}" type="text" class="form-control input-sm" placeholder="填写学科名称">
+                  <input name="cg_name" value="{{ cg_name }}" type="text" class="form-control input-sm" placeholder="填写学科名称">
               </div>
           </div>
           <div class="form-group">
               <label for="" class="col-xs-4 control-label">从属学科</label>
               <div class="col-xs-2">
-                  <select name="" class="form-control input-sm">
+                  <select name="cg_pid" class="form-control input-sm">
+                    <option value="0">顶级学科</option>
                       <!-- 每个学科都有一个cg_pid属性指向他的父 -->
                       <!-- 这里利用这个值与options中的value比较，对上了，就让这个option选中 -->
-                      <option value="0">顶级分类</option>
                       {{ each top categoryTop i }}
-                      <option value="{{ categoryTop.cg_id }}" {{ cg_pid == categoryTop.cg_id? 'selected': '' }}>
-                        {{ categoryTop.cg_name }}
-                      </option>
+                      <option value="{{ categoryTop.cg_id }}" {{ cg_pid == categoryTop.cg_id? 'selected': '' }}>{{ categoryTop.cg_name }}</option>
                       {{ /each }}
                   </select>
               </div>
@@ -54,17 +53,17 @@
           <div class="form-group">
               <label for="" class="col-xs-4 control-label">排序</label>
               <div class="col-xs-1">
-                  <input name="" value="{{ cg_order }}" type="text" class="form-control input-sm" value="10">
+                  <input name="cg_order" value="{{ cg_order }}" type="text" class="form-control input-sm" value="10">
               </div>
           </div>
           <div class="form-group">
               <label for="" class="col-xs-4 control-label">是否显示</label>
               <div class="col-xs-3">
                   <label class="checkbox-inline">
-                      <input value="" type="radio" {{ cg_is_hide == 0? 'checked': '' }}> 是
+                      <input name="cg_is_hide" value="0" type="radio" {{ cg_is_hide == 0? 'checked': '' }}> 是
                   </label>
                   <label class="checkbox-inline">
-                      <input value="" type="radio" {{ cg_is_hide != 0? 'checked': '' }}> 否
+                      <input name="cg_is_hide" value="1" type="radio" {{ cg_is_hide != 0? 'checked': '' }}> 否
                   </label>
               </div>
           </div>
