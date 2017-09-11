@@ -54,7 +54,7 @@
             <td>{{ category.cg_is_hide == 0? '是': '否' }}</td>
             <td>{{ category.level }}</td>
             <td>
-                <a href="./edit.html" class="btn btn-info btn-xs">编辑</a>
+                <a href="/dist/html/category/edit.html?cg_id={{ category.cg_id }}" class="btn btn-info btn-xs">编辑</a>
             </td>
         </tr>
         {{ /each }}
