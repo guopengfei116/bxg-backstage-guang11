@@ -62,7 +62,7 @@ $(document).on('click', '#btn-lesson-add', function() {
  * 2、通过ajaxForm插件方法把表单默认刷新提交转ajax提交，因为form是动态生成的，所以要使用委托
  * 3、请求成功后，通过判断服务器data.result来却分是修改还是添加，给用户不同的提示信息
  * */
-$('#lesson-tpl').ajaxForm({
+$('#lesson-form').ajaxForm({
   delegation: true,
   success: function(data) {
 
