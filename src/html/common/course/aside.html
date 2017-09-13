@@ -3,14 +3,14 @@
     <li>
         <a href="/dist/html/course/edit1.html?cs_id={{ cs_id }}"
           class="{{ editIndex == 1? 'active': '' }} {{ editIndex > 1? 'done': '' }}">
-        <b>1</b>
+        <b class="{{ editIndex > 1? 'fa fa-check': '' }}">1</b>
         基本信息
         </a>
     </li>
     <li>
         <a href="/dist/html/course/edit2.html?cs_id={{ cs_id }}"
           class="{{ editIndex == 2? 'active': '' }} {{ editIndex > 2? 'done': '' }}">
-        <b>2</b>
+        <b class="{{ editIndex > 2? 'fa fa-check': '' }}">2</b>
         课程图片
         </a>
     </li>
