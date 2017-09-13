@@ -41,7 +41,7 @@
               <!-- 标题 -->
               <div class="title">
                   <h5>课时管理 <small>LESSON MANAGE</small></h5>
-                  <a src="javascript:;" data-toggle="modal" data-target="#chapterModal" class="btn btn-success btn-sm pull-right">
+                  <a id="btn-lesson-add" src="javascript:;" data-toggle="modal" data-target="#chapterModal" class="btn btn-success btn-sm pull-right">
                       <i class="fa fa-plus"></i>课时
                   </a>
               </div>
@@ -75,6 +75,9 @@
               </div>
               <div class="modal-body">
                   <form id="lesson-form" action="{{ ct_id? '/v6/course/chapter/modify': '/v6/course/chapter/add' }} " method="post" class="form-horizontal">
+                      <!-- ct_cs_id是后端为了确定你编辑添加的章节属于那个课程，这个值咱们可以从location.search中提取 -->
+                      <input type="hidden" name="ct_cs_id" value="{{ cs_id }}" />
+                      <!-- ct_id是编辑章节时后端为了区分你编辑的是谁 -->
                       <input type="hidden" name="ct_id" value="{{ ct_id }}" />
                       <div class="form-group">
                           <label for="" class="col-xs-2 control-label">标题</label>
@@ -84,7 +87,7 @@
                           <div class="col-xs-2">
                               <div class="checkbox">
                                   <label>
-                                      <input type="checkbox" {{ ct_is_free == 1? 'checked': '' }}> 免费课时
+                                      <input name="ct_is_free" type="checkbox" {{ ct_is_free == 1? 'checked': '' }}> 免费课时
                                   </label>
                               </div>
                           </div>
