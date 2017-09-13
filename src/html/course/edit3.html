@@ -74,7 +74,8 @@
                   <h4 class="modal-title">{{ ct_id? '编辑章节': '添加章节' }}</h4>
               </div>
               <div class="modal-body">
-                  <form action="" class="form-horizontal">
+                  <form id="lesson-form" action="{{ ct_id? '/v6/course/chapter/modify': '/v6/course/chapter/add' }} " method="post" class="form-horizontal">
+                      <input type="hidden" name="ct_id" value="{{ ct_id }}" />
                       <div class="form-group">
                           <label for="" class="col-xs-2 control-label">标题</label>
                           <div class="col-xs-6">
@@ -126,11 +127,11 @@
                                <p class="help-block">（如未设置，则默认学习时长为视频时长3倍取整。）</p>
                           </div>
                       </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-link btn-sm" data-dismiss="modal">取消</button>
+                          <button type="submit" class="btn btn-success btn-sm">{{ ct_id? '保 存': '添 加' }}</button>
+                      </div>
                   </form>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-link btn-sm" data-dismiss="modal">取消</button>
-                  <button type="button" class="btn btn-success btn-sm">{{ ct_id? '保 存': '添 加' }}</button>
               </div>
           </div>
       </div>

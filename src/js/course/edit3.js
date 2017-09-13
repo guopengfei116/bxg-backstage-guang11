@@ -42,3 +42,17 @@ $(document).on('click', '.btn-lesson-edit', function() {
      }
   });
 });
+
+/**
+ * 编辑章节_表单提交：
+ * 1、因为表单要数据回显是动态生成的，所以使用ajaxForm插件方法的委托
+ * 2、成功后给个提示
+ * */
+$('#lesson-form').ajaxForm({
+  delegation: true,
+  success: function(data) {
+    if(data.code == 200) {
+      alert('修改成功');
+    }
+  }
+});
