@@ -26,70 +26,7 @@
     </div>
     <!-- 模态框 添加课程 -->
     <div class="modal fade" id="chapterModal">
-        <div class="modal-dialog" style="width: 800px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">添加课时</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" class="form-horizontal">
-                        <div class="form-group">
-                            <label for="" class="col-xs-2 control-label">标题</label>
-                            <div class="col-xs-6">
-                                <input type="text" class="form-control input-sm">
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> 免费课时
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-xs-2 control-label">简介</label>
-                            <div class="col-xs-8">
-                                <textarea name="" rows="5" class="form-control input-sm"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-xs-2 control-label">视频</label>
-                            <div class="col-xs-8">
-                                <div class="input-group">
-                                    <input type="text" class="form-control input-sm" placeholder="支持优酷、土豆、腾讯、网易公开课的视频页面地址导入">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-sm">获取</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group form-inline">
-                            <label for="" class="col-xs-2 control-label">时长</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control input-sm small">
-                                分
-                                <input type="text" class="form-control input-sm small">
-                                秒
-                                 <p class="help-block">时长必须为整数。</p>
-                            </div>
-                        </div>
-                        <div class="form-group form-inline">
-                            <label for="" class="col-xs-2 control-label">建议学习时长</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control input-sm small">
-                                小时
-                                 <p class="help-block">（如未设置，则默认学习时长为视频时长3倍取整。）</p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-link btn-sm" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-success btn-sm"> 添 加 </button>
-                </div>
-            </div>
-        </div>
+      <!-- 添加编辑课程模态框模版的坑 -->
     </div>
 
     <!-- 课程编辑第三步模版 -->
@@ -118,12 +55,82 @@
                           <span class="duration">{{ lesson.ct_video_duration }}</span>
                           <!-- 操作 -->
                           <div class="action pull-right">
-                              <a href="#chapterModal" class="btn btn-info btn-xs" data-toggle="modal">编辑</a>
-                              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+                              <a href="#chapterModal" data-id="{{ lesson.ct_id }}" class="btn-lesson-edit btn btn-info btn-xs" data-toggle="modal">编辑</a>
+                              <a href="javascript:;" data-id="{{ lesson.ct_id }}"  class="btn btn-danger btn-xs">删除</a>
                           </div>
                       </li>
                       {{ /each }}
                   </ul>
+              </div>
+          </div>
+      </div>
+    </script>
+    <!-- 添加编辑课程模态框模版 -->
+    <script id="lesson-tpl" type="text/tpl">
+      <div class="modal-dialog" style="width: 800px;">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">{{ ct_id? '编辑章节': '添加章节' }}</h4>
+              </div>
+              <div class="modal-body">
+                  <form action="" class="form-horizontal">
+                      <div class="form-group">
+                          <label for="" class="col-xs-2 control-label">标题</label>
+                          <div class="col-xs-6">
+                              <input name="ct_name" value="{{ ct_name }}" type="text" class="form-control input-sm">
+                          </div>
+                          <div class="col-xs-2">
+                              <div class="checkbox">
+                                  <label>
+                                      <input type="checkbox" {{ ct_is_free == 1? 'checked': '' }}> 免费课时
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="" class="col-xs-2 control-label">简介</label>
+                          <div class="col-xs-8">
+                              <textarea name="ct_brief" rows="5" class="form-control input-sm">
+                              {{ ct_brief }}</textarea>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="" class="col-xs-2 control-label">视频</label>
+                          <div class="col-xs-8">
+                              <div class="input-group">
+                                  <input type="text" name="ct_video" value="{{ ct_video }}"
+                                  class="form-control input-sm"
+                                  placeholder="支持优酷、土豆、腾讯、网易公开课的视频页面地址导入">
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-success btn-sm">获取</button>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group form-inline">
+                          <label for="" class="col-xs-2 control-label">时长</label>
+                          <div class="col-xs-8">
+                              <input type="text" name="ct_minutes" value="{{ ct_minutes }}" class="form-control input-sm small">
+                              分
+                              <input type="text" name="ct_seconds" value="{{ ct_seconds }}" class="form-control input-sm small">
+                              秒
+                               <p class="help-block">时长必须为整数。</p>
+                          </div>
+                      </div>
+                      <div class="form-group form-inline">
+                          <label for="" class="col-xs-2 control-label">建议学习时长</label>
+                          <div class="col-xs-8">
+                              <input type="text" name="ct_recommend_duration" value="{{ ct_recommend_duration }}" class="form-control input-sm small">
+                              小时
+                               <p class="help-block">（如未设置，则默认学习时长为视频时长3倍取整。）</p>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-link btn-sm" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-success btn-sm">{{ ct_id? '保 存': '添 加' }}</button>
               </div>
           </div>
       </div>
