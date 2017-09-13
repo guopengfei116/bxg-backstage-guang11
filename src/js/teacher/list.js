@@ -32,6 +32,6 @@ $(document).on('click', '.btn-teacher-status', function() {
     $.post('/v6/teacher/handle', data, function(data) {
       var newStatus = data.result.tc_status;
       $this.text(newStatus == 0? '注 销': '启 用');  // 更新按钮的文本
-      $this.attr('data-status', newStatus);       // 修改自定位属性为新的status
+      $this.attr('data-status', newStatus);            // 修改自定位属性为新的status
     });
 });
