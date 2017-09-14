@@ -50,10 +50,32 @@ function initPlugin() {
 }
 
 
-
 /**
  * 委托方式给裁剪图片绑定点击事件，初始化裁剪插件
  * */
 $(document).on('click', '#btn-clip', function() {
 
+  // 当裁剪插件初始化完毕后，会执行回调，回调中的this为插件实例，通过这个实例可以拿到一些的数据
+  $('.preview img').Jcrop({
+    aspectRatio: 2
+  }, function() {
+    window.J = this;
+  });
+
 });
+
+/**
+ * 委托方式给保存按钮绑定点击事件，点击时把裁剪的数据传送给后端
+ * */
+$(document).on('click', '#btn-slip-save', function() {
+
+  var data = J.getSelection();
+  data.cs_id = cs_id;
+  $.post('/v6/course/update/picture', data, function(data) {
+    alert('裁剪成功');
+    location.href = '/dist/html/course/edit3.html?cs_id=' + cs_id;
+  });
+
+});
+
+
