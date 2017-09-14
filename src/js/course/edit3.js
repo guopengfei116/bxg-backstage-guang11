@@ -1,5 +1,3 @@
-NProgress.start();
-
 require('../common/header.js');
 require('../common/aside.js');
 require('../common/loading.js');
@@ -17,6 +15,7 @@ var util = require('../common/util.js');
  *    3.2、数据提交
  * */
 var cs_id = util.getSearch('cs_id');
+var lessons;
 
 /**
  * 页面数据回显：
@@ -26,6 +25,7 @@ var cs_id = util.getSearch('cs_id');
  * */
 $.get('/v6/course/lesson', { cs_id: cs_id }, function(data) {
   if(data.code == 200) {
+    lessons = data.result.lessons;
     data.result.editIndex = 3;
     $('#course-edit3').append(template('course-edit3-tpl', data.result));
   }
@@ -73,12 +73,73 @@ $('#lesson-form').ajaxForm({
     // 添加成功后，给出提示，并重置表单
     if(data.result) {
       alert('添加成功');
-      $('#lesson-tpl').get(0).reset();
+      upLessons(data.result);
+      $('#lesson-form').get(0).reset();
     }
 
     // 修改成功后，给出提示
     else {
       alert('修改成功');
+      upLessons();
     }
   }
 });
+
+/**
+ * 更新章节列表：
+ * lessons: [ {ct_id:"1", "ct_name":"介绍", "ct_video_duration":"3:12"}
+ *                {ct_id:"2", "ct_name":"定位和浮动", "ct_video_duration":"08:14"} ]
+ * 1、获取表单中的章节名称、分钟、秒三个字段，还要获取ct_id字段
+ * 2、其中ct_id编辑和添加章节获取的方式不一样
+ *    2.1、如果是编辑直接从表单中获取即可
+ *    2.2、如果是添加则需要用户传入ct_id
+ * 3、把得到的数据拼成lessons里面的对象的样子
+ * 4、如果是添加章节那么直接把对象push进入即可，如果是编辑找到章节的下标进行splice替换
+ * 5、最后按新的lessons数据重新渲染
+ * */
+function upLessons(ct_id) {
+  var formData = getFormData();
+
+  var lessonData = {
+    ct_id: formData.ct_id || ct_id,  // 编辑时候ct_id来自表单，添加时候ct_id来自后端返回值
+    ct_name: formData.ct_name,
+    ct_video_duration: formData.ct_minutes + ':' + formData.ct_seconds
+  };
+
+  // 添加章节，直接push到lessons即可
+  if(ct_id) {
+    lessons.push(lessonData);
+  }
+  // 编辑章节，先通过ct_id得到这个章节的下标，然后splice替换为新的对象
+  else {
+    var index = getLessonIndex(formData.ct_id);
+    lessons.splice(index, 1, lessonData);
+  }
+
+  console.log(lessons);
+}
+
+/**
+ * 返回模态框form数据构成的对象：
+ * 1、先通过JQ的方法获取一个数组
+ * 2、然后遍历数组中的值重新组织成{ key: val, key: val }的数据形式
+ * */
+function getFormData() {
+  var formArrData = $('#lesson-form').serializeArray();
+  var formData = {};
+  for(var i = 0, len = formArrData.length; i < len; i++) {
+    formData[ formArrData[i].name ] = formArrData[i].value;
+  }
+  return formData;
+}
+
+/**
+ * 通过ct_id返回它在lessons中的下标：
+ * */
+function getLessonIndex(ct_id) {
+  for(var i = 0, len = lessons.length; i < len; i++) {
+    if(lessons[i].ct_id == ct_id) {
+      return i;
+    }
+  }
+}

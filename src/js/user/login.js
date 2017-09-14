@@ -1,5 +1,3 @@
-NProgress.start();
-
 require('../common/loading.js');
 require('../common/common.js');
 
