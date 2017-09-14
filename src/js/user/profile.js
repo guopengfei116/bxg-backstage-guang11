@@ -41,12 +41,12 @@ $('#teacher-profile-form').ajaxForm({
   }
 });
 
-
-
 /**
  * 所有的插件初始化都放在这里
  * */
 function initPlugin() {
+
+  // 日期插件
   $('input[name=tc_birthday]').datepicker({
     language: 'zh-CN',
     format: 'yyyy-mm-dd',
@@ -56,5 +56,16 @@ function initPlugin() {
     language: 'zh-CN',
     format: 'yyyy-mm-dd',
     endDate: new Date('2010-01-01')
+  });
+
+  // 三级联动插件
+  $('#region-container').region({
+    url: '/lib/jquery-region/region.json'
+  });
+
+  // 富文本编辑器
+  window.edit = CKEDITOR.replace('introduce', {
+    width: 600,
+    skin: 'moono-lisa'
   });
 }
