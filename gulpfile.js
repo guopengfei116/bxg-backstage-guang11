@@ -45,7 +45,9 @@ var jsLibs = [
     'node_modules/bootstrap/dist/js/bootstrap.js',
     'node_modules/jquery-form/dist/jquery.form.min.js',
     'node_modules/jquery.cookie/jquery.cookie.js',
-    'node_modules/nprogress/nprogress.js'
+    'node_modules/nprogress/nprogress.js',
+    'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
+    'node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js'
 ];
 // 合并所有的第三方包为一个js
 gulp.task('jsLib', function() {
