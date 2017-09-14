@@ -68,6 +68,15 @@ $(document).on('click', '#btn-lesson-add', function() {
  * */
 $('#lesson-form').ajaxForm({
   delegation: true,
+
+  // 表单提交之前做点事情
+  beforeSubmit: function(arrData, $form, options) {
+    arrData.push({
+      name: 'ct_is_free',
+      value: $('#ct_is_free').prop('checked')? 1: 0
+    })
+  },
+
   success: function(data) {
 
     // 添加成功后，给出提示，并重置表单
@@ -116,7 +125,8 @@ function upLessons(ct_id) {
     lessons.splice(index, 1, lessonData);
   }
 
-  console.log(lessons);
+  // 把新的章节列表数据进行渲染
+  $('#lesson-list').html(template('lesson-list-tpl', lessons));
 }
 
 /**

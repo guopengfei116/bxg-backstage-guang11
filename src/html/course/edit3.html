@@ -46,7 +46,7 @@
                   </a>
               </div>
               <div class="lessons">
-                  <ul class="list-unstyled">
+                  <ul id="lesson-list" class="list-unstyled">
                       {{ each lessons lesson i }}
                       <li>
                           <i class="fa fa-file-video-o"></i>
@@ -87,7 +87,7 @@
                           <div class="col-xs-2">
                               <div class="checkbox">
                                   <label>
-                                      <input name="ct_is_free" type="checkbox" {{ ct_is_free == 1? 'checked': '' }}> 免费课时
+                                      <input id="ct_is_free" value="1" type="checkbox" {{ ct_is_free == 1? 'checked': '' }}> 免费课时
                                   </label>
                               </div>
                           </div>
@@ -138,6 +138,23 @@
               </div>
           </div>
       </div>
+    </script>
+
+    <!-- 章节列表模版 -->
+    <script id="lesson-list-tpl" type="text/tpl">
+    	{{ each $data lesson i }}
+      <li>
+          <i class="fa fa-file-video-o"></i>
+          <span class="order">课时：{{ i + 1 }}</span>
+          <span class="name">{{ lesson.ct_name }}</span>
+          <span class="duration">{{ lesson.ct_video_duration }}</span>
+          <!-- 操作 -->
+          <div class="action pull-right">
+              <a href="#chapterModal" data-id="{{ lesson.ct_id }}" class="btn-lesson-edit btn btn-info btn-xs" data-toggle="modal">编辑</a>
+              <a href="javascript:;" data-id="{{ lesson.ct_id }}"  class="btn btn-danger btn-xs">删除</a>
+          </div>
+        </li>
+        {{ /each }}
     </script>
     <script src="/dist/js/lib.js"></script>
     <script src="/dist/js/course/edit3.js"></script>
