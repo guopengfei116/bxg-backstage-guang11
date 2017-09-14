@@ -1,5 +1,9 @@
+NProgress.start();
+
 require('../common/header.js');
 require('../common/aside.js');
+require('../common/loading.js');
+require('../common/common.js');
 var util = require('../common/util.js');
 
 /**

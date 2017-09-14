@@ -18,7 +18,8 @@
     "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
     "jquery-form": "^4.2.1",
-    "jquery.cookie": "^1.4.1"
+    "jquery.cookie": "^1.4.1",
+    "nprogress": "^0.2.0"
   },
   "devDependencies": {
     "browserify": "^14.4.0",

@@ -1,4 +1,14 @@
 /**
+ * 添加页面进度条：
+ * 1、首先调用进度条的start方法
+ * 2、然后监听window的load事件，触发时候调用进度条done方法
+ * */
+NProgress.start();
+window.onload = function() {
+  NProgress.done();
+};
+
+/**
  * 登陆权限校验：
  * 1、我们先在前端拿到本地的cookie，看看其中有没有PHPSESSID这一项
  *      有：就认为用户已登陆
