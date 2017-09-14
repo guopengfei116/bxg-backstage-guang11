@@ -17,7 +17,8 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
-    "jquery-form": "^4.2.1"
+    "jquery-form": "^4.2.1",
+    "jquery.cookie": "^1.4.1"
   },
   "devDependencies": {
     "browserify": "^14.4.0",
